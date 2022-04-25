@@ -22,6 +22,8 @@ namespace DemosMVC.Controllers {
         }
 
         public IActionResult Index() {
+            //PositionOptions p = null;
+            //ViewBag.nombre = p.Name;
             ViewBag.nombre = userName;
             return View();
         }
@@ -33,6 +35,10 @@ namespace DemosMVC.Controllers {
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Demo() {
+            return View();
         }
     }
 }
