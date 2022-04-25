@@ -57,6 +57,18 @@ namespace DemosMVC {
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            var positionOptions = new PositionOptions();
+            Configuration.GetSection(PositionOptions.Position).Bind(positionOptions);
+            string userName = Configuration.GetSection("Position")["Name"];
+
+
         }
+
+    }
+    public class PositionOptions {
+        public const string Position = "Position";
+        public string Title { get; set; }
+        public string Name { get; set; }
     }
 }
