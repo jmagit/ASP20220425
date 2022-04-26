@@ -27,5 +27,22 @@ namespace DemosMVC.Controllers {
             var dao = new PersonaRepository();
             return View(dao.Get(101)); 
         }
+        [HttpPost]
+        public IActionResult Edit(Persona item) {
+            if(ModelState.IsValid) {
+                var dao = new PersonaRepository();
+
+            } else {
+                ModelState.AddModelError("", "Esto es para el sumario");
+                ModelState.AddModelError("Edad", "Esto es para la edad");
+            }
+            return View(item);
+        }
+
+        [AcceptVerbs("GET", "POST")] 
+        public IActionResult VerifyFecha(DateTime fecha) {
+            return fecha.Date.CompareTo(DateTime.Today) == 1 ? Json(true) : Json($"Todavía no ha nacido");
+        }
+
     }
 }
