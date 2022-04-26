@@ -1,7 +1,34 @@
-﻿
+﻿@using DemosMVC.Models;
+
 @{
     ViewData["Title"] = "Index";
+    var nombre = @"<b>Mundo</b>";
+    //nombre = "<script>alert('codigo malicioso')</script>";
+    var items = ViewData["item"] as Persona;
+    var listado = ViewData["listado"] as IList<Persona>;
 }
 
 <h1>Mi primer controlador</h1>
+@if (!String.IsNullOrWhiteSpace(nombre)) {
+    <h2>Hola @Html.Raw(nombre)</h2>
+}
 
+<h2>Hola @(String.IsNullOrWhiteSpace(nombre) ? "mundo" : nombre)</h2>
+<p>Correo: pepito@grillo.com</p>
+<ul>
+    @for (var i = 1; i <= 10; i++) {
+        <li>@i</li>
+    }
+
+</ul>
+@foreach (var item in listado) {
+    <p>
+        <b>Nombre: </b>@Html.Raw(item.Nombre) @item.Apellidos
+        <br />
+        <b>Edad: </b> @item.Edad
+    </p>
+}
+
+<environment names="Development">
+    <strong>EnvironmentName is Staging or Production</strong>
+</environment>

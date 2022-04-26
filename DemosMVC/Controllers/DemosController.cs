@@ -15,7 +15,17 @@ namespace DemosMVC.Controllers {
             } else {
                 item = dao.Get(2);
             }
+            ViewData["item"] = item;
+            ViewData["listado"] = dao.Get();
             return View();
+        }
+        public IActionResult Details() {
+            var dao = new PersonaRepository();
+            return View(dao.Get(101));
+        }
+        public IActionResult Edit() {
+            var dao = new PersonaRepository();
+            return View(dao.Get(101)); 
         }
     }
 }

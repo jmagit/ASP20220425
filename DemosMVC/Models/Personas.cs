@@ -8,6 +8,7 @@ namespace DemosMVC.Models {
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellidos { get; set; }
+        public string NIF { get; set; }
         public DateTime FechaNacimiento { get; set; } = DateTime.Now;
         public DateTime FechaBaja { get; set; }
         public bool Activo { get; set; } = true;
@@ -25,8 +26,15 @@ namespace DemosMVC.Models {
     }
 
     public class PersonaRepository {
+        public IList<Persona> Get() {
+            var rslt = new List<Persona>();
+            rslt.Add(new Persona() { Id = 1, Nombre = "Pepito", Apellidos = "Grillo", FechaNacimiento = DateTime.Parse("01/01/1999") });
+            rslt.Add(new Persona() { Id = 2, Nombre = "Carmelo", Apellidos = "Coton", FechaNacimiento = DateTime.Parse("02/02/2002") });
+            rslt.Add(new Persona() { Id = 3, Nombre = "Pedro", Apellidos = "Pica Piedra", FechaNacimiento = DateTime.Parse("12/12/1991") });
+            return  rslt;
+        }
         public Persona Get(int id) {
-            return new Persona() { Id = id, Nombre = "Pepito", Apellidos = "Grillo" };
+            return new Persona() { Id = id, Nombre = "Pepito", Apellidos = "Grillo", FechaNacimiento = DateTime.Parse("01/01/1999") };
         }
     }
 
