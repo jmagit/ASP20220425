@@ -16,4 +16,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domains.Contracts\Domains.Contracts.csproj" />
+    <ProjectReference Include="..\Domains.Entity\Domains.Entities.csproj" />
+    <ProjectReference Include="..\Domains.Services\Domains.Services.csproj" />
+    <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
+    <ProjectReference Include="..\Util.Core\Util.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -40,8 +40,8 @@ namespace DemosMVC.Controllers {
         }
 
         [AcceptVerbs("GET", "POST")] 
-        public IActionResult VerifyFecha(DateTime fecha) {
-            return fecha.Date.CompareTo(DateTime.Today) == 1 ? Json(true) : Json($"Todavía no ha nacido");
+        public IActionResult VerifyFecha([FromQuery(Name = "FechaNacimiento")] DateTime fecha) {
+            return fecha.Date.CompareTo(DateTime.Today) > 0 ? Json($"Todavía no ha nacido") : Json(true);
         }
 
     }
