@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Foto</th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -24,6 +25,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td><img src="@Href($"~/Products/photo/{item.ProductId}")" /></td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</a>
 </td>

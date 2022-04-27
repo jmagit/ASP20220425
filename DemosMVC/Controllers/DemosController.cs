@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemosMVC.Controllers {
     public class DemosController : Controller {
-        public IActionResult Index() {
+        public IActionResult Index([FromHeader(Name = "accept-language")] string idioma) {
             var dao = new PersonaRepository();
             Persona item;
             if (true) {
@@ -15,6 +15,7 @@ namespace DemosMVC.Controllers {
             } else {
                 item = dao.Get(2);
             }
+            ViewBag.Idioma = idioma; // -->   ViewData["Idioma"] = idioma;
             ViewData["item"] = item;
             ViewData["listado"] = dao.Get();
             return View();
@@ -44,5 +45,15 @@ namespace DemosMVC.Controllers {
             return fecha.Date.CompareTo(DateTime.Today) > 0 ? Json($"Todavía no ha nacido") : Json(true);
         }
 
+        [Route("ejemplo/json/{id}")]
+        [RequireHttps]
+        public IActionResult Json(int? id) {
+            if (id == null)
+                return StatusCode(404);
+            if(id == 100)
+                return StatusCode(401);
+            var dao = new PersonaRepository();
+            return Json(dao.Get(id.Value));
+        }
     }
 }

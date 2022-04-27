@@ -1,4 +1,8 @@
 using DemosMVC.Data;
+using Domains.Contracts.DomainsServices;
+using Domains.Contracts.Repositories;
+using Domains.Services;
+using Infraestructure.Repositories;
 using Infraestructure.UoW;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,7 +43,12 @@ namespace DemosMVC {
             services.AddControllersWithViews();
 
             services.AddSingleton<IValidationAttributeAdapterProvider, CustomValidationAttributeAdapterProvider>();
-
+            //#if DEBUG
+            //            services.AddTransient<IProductoRepository, ProductoRepositoryMock>();
+            //#else
+            services.AddTransient<IProductoRepository, ProductoRepository>();
+            //#endif
+            services.AddTransient<IProductoService, ProductoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +71,20 @@ namespace DemosMVC {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
+                    name: "productos",
+                    pattern: "productos/{num:int:min(0)}/{size:int:min(5)?}",
+                    defaults: new { controller = "Products", action = "Index" }
+                    );
+                endpoints.MapControllerRoute(
+                    name: "informes",
+                    pattern: "informes/trimestrales/{año:int:min(0)}/{trimestre:int:min(5)}",
+                    defaults: new { controller = "Products", action = "Index" }
+                    );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
 
