@@ -28,7 +28,9 @@ namespace DemosMVC.Controllers {
 
         // GET: Products
         public IActionResult Index(int num, int size = 20) {
-            return View(srv.GetAll(num, size));
+            var listado = srv.GetAll(num, size);
+            ViewBag.Paginas = (int)Math.Ceiling((decimal)_context.Products.Count() / size);
+            return View(listado);
         }
 
         // GET: Products/Details/5
