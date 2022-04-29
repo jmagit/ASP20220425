@@ -75,6 +75,7 @@ namespace DemosMVC {
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "productos",
                     pattern: "productos/{num:int:min(0)}/{size:int:min(5)?}",
@@ -90,7 +91,6 @@ namespace DemosMVC {
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllers();
-                endpoints.MapRazorPages();
             });
 
             var positionOptions = new PositionOptions();

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DemosMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemosMVC.Controllers {
+    [Authorize]
     public class DemosController : Controller {
         public IActionResult Index([FromHeader(Name = "accept-language")] string idioma) {
             var dao = new PersonaRepository();

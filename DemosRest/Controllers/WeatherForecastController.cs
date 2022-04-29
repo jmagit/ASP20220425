@@ -8,7 +8,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace DemosRest.Controllers {
-    [Authorize]
+    /// <summary>
+    /// Servic
+    /// </summary>
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase {
@@ -26,9 +29,13 @@ namespace DemosRest.Controllers {
             _logger = logger;
         }
 
+        /// <summary>
+        /// Esto es una demo
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get() {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+           // HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast {

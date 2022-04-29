@@ -22,7 +22,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody id="cuerpo">
+    <tbody>
         @foreach (var item in Model) {
             <tr>
                 <td><img src="@Href($"~/Products/photo/{item.ProductId}")" /></td>
@@ -57,7 +57,7 @@
                 function (data) {
                     data.text().then(
                         function (listado) {
-                            $('#cuerpo').html(listado)
+                            $('tbody').html(listado)
                         }
                     )
                 }
@@ -90,7 +90,7 @@
                                     </td>
                                 </tr>`
                             }
-                            $('#cuerpo').html(cad)
+                            $('tbody').html(cad)
                         }
                     )
                 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domains.Entities;
 using Infraestructure.UoW;
 using Domains.Contracts.DomainsServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DemosMVC.Controllers {
     public class ProductsController : Controller {
@@ -65,6 +66,8 @@ namespace DemosMVC.Controllers {
             return View(product);
         }
 
+        [Authorize]
+
         // GET: Products/Create
         public IActionResult Create() {
             ViewData["ProductModelId"] = new SelectList(_context.ProductModels, "ProductModelId", "Name");
@@ -78,6 +81,7 @@ namespace DemosMVC.Controllers {
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,Name,ProductNumber,MakeFlag,FinishedGoodsFlag,Color,SafetyStockLevel,ReorderPoint,StandardCost,ListPrice,Size,SizeUnitMeasureCode,WeightUnitMeasureCode,Weight,DaysToManufacture,ProductLine,Class,Style,ProductSubcategoryId,ProductModelId,SellStartDate,SellEndDate,DiscontinuedDate,Rowguid,ModifiedDate,Ventas")] Product product) {
             if (ModelState.IsValid) {
@@ -93,6 +97,7 @@ namespace DemosMVC.Controllers {
         }
 
         // GET: Products/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
                 return NotFound();
@@ -113,6 +118,7 @@ namespace DemosMVC.Controllers {
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,ProductNumber,MakeFlag,FinishedGoodsFlag,Color,SafetyStockLevel,ReorderPoint,StandardCost,ListPrice,Size,SizeUnitMeasureCode,WeightUnitMeasureCode,Weight,DaysToManufacture,ProductLine,Class,Style,ProductSubcategoryId,ProductModelId,SellStartDate,SellEndDate,DiscontinuedDate,Rowguid,ModifiedDate,Ventas")] Product product) {
             if (id != product.ProductId) {
@@ -140,6 +146,7 @@ namespace DemosMVC.Controllers {
         }
 
         // GET: Products/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id) {
             if (id == null) {
                 return NotFound();
@@ -160,6 +167,7 @@ namespace DemosMVC.Controllers {
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
             var product = await _context.Products.FindAsync(id);
