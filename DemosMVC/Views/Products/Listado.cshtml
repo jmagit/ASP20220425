@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Domains.Entities.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_Titulo" />
+
+<p>
+    <a asp-action="Create">Añadir</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="cuerpo">
+        @foreach (var item in Model) {
+            <tr>
+                <td><img src="@Href($"~/Products/photo/{item.ProductId}")" /></td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination">
+        @for (var i = 0; i < ViewBag.Paginas; i++) {
+            <li class="page-item"><input type="button" class="page-link" value="@(i+1)"></li>
+        }
+    </ul>
+</nav>
+@ViewBag.Partial
+
+@section Scripts {
+    @if ((bool)ViewBag.Partial) {
+        <script>
+        const traePartial = function (num) {
+            fetch(`/Products/ListadoPartial?page=${num}&size=@ViewBag.Filas`).then(
+                function (data) {
+                    data.text().then(
+                        function (listado) {
+                            $('#cuerpo').html(listado)
+                        }
+                    )
+                }
+            )
+        }
+        $('.page-link').click(function (ev) {
+            traePartial(ev.target.value)
+        })
+        </script>
+    } else {
+        <script>
+        const traePagina = function (num) {
+            fetch(`/api/Products?page=${num}&size=@ViewBag.Filas`).then(
+                function (data) {
+                    data.json().then(
+                        function (listado) {
+                            var cad = ''
+                            for (var item of listado) {
+                                cad += `<tr>
+                                    <td><img src="/Products/photo/${item.productId}" /></td>
+                                    <td>
+                                        <a href="/Products/Details/${item.productId}">${item.name}</a>
+                                    </td>
+                                    <td>
+                                        ${item.productNumber}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" href="/Products/Edit/${item.productId}">Edit</a> |
+                                        <a class="btn btn-danger" href="/Products/Delete/${item.productId}">Delete</a>
+                                    </td>
+                                </tr>`
+                            }
+                            $('#cuerpo').html(cad)
+                        }
+                    )
+                }
+            )
+        }
+        $('.page-link').click(function (ev) {
+            traePagina(ev.target.value)
+        })
+        </script>
+    }
+
+}

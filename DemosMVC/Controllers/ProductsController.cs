@@ -27,11 +27,24 @@ namespace DemosMVC.Controllers {
         //}
 
         // GET: Products
-        public IActionResult Index(int num, int size = 20) {
+        public IActionResult Index(int num, int size = 5) {
             var listado = srv.GetAll(num, size);
             ViewBag.Paginas = (int)Math.Ceiling((decimal)_context.Products.Count() / size);
+            ViewBag.Filas = size;
             return View(listado);
         }
+        public IActionResult Listado(int num, int size = 5, bool partial=false) {
+            var listado = srv.GetAll(num, size);
+            ViewBag.Paginas = (int)Math.Ceiling((decimal)_context.Products.Count() / size);
+            ViewBag.Pagina = num;
+            ViewBag.Filas = size;
+            ViewBag.Partial = partial;
+            return View(listado);
+        }
+        public IActionResult ListadoPartial(int page, int size = 5) {
+            return PartialView("_Listado", srv.GetAll(page, size));
+        }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id) {

@@ -1,28 +1,5 @@
 ﻿@model IEnumerable<Domains.Entities.Product>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<partial name="_Titulo" />
-
-<p>
-    <a asp-action="Create">Añadir</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Foto</th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductNumber)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var item in Model) {
             <tr>
                 <td><img src="@Href($"~/Products/photo/{item.ProductId}")" /></td>
@@ -38,12 +15,3 @@
                 </td>
             </tr>
         }
-    </tbody>
-</table>
-<nav>
-    <ul class="pagination">
-        @for (var i = 0; i < ViewBag.Paginas; i++) {
-            <li class="page-item"><a class="page-link" href='@Href($"~/Products?num={i}&size={ViewBag.Filas}")'>@(i+1)</a></li>
-        }
-    </ul>
-</nav>

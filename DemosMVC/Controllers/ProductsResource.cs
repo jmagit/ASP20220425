@@ -15,12 +15,12 @@ namespace DemosMVC.Controllers {
         public string ProductNumber { get; set; }
 
     }
-    [Route("api/Products")]
+    [Route("api/products")]
     [ApiController()]
-    public class ProductsResourceController : ControllerBase {
+    public class ProductsResource : ControllerBase {
         private readonly TiendaDbContext _context;
 
-        public ProductsResourceController(TiendaDbContext context) {
+        public ProductsResource(TiendaDbContext context) {
             _context = context;
         }
 
